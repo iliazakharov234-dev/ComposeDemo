@@ -15,29 +15,31 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composedemo.ui.theme.ComposeDemoTheme
-import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            ComposeDemoTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    DemoScreen(modifier = Modifier.padding(innerPadding))
+                }
+            }
         }
     }
 }
-
-
 
 @Composable
 fun DemoText(message: String, fontSize: Float) {
@@ -49,7 +51,7 @@ fun DemoText(message: String, fontSize: Float) {
 }
 
 @Composable
-fun DemoSlider(sliderPosition: Float, onPositionChange: (Float) -> Unit ) {
+fun DemoSlider(sliderPosition: Float, onPositionChange: (Float) -> Unit) {
     Slider(
         modifier = Modifier.padding(10.dp),
         valueRange = 20f..38f,
@@ -58,18 +60,18 @@ fun DemoSlider(sliderPosition: Float, onPositionChange: (Float) -> Unit ) {
     )
 }
 
-
-
 @Composable
 fun DemoScreen(modifier: Modifier = Modifier) {
-    var sliderPosition by remember { mutableFloatStateOf(20f) }
-    val handlePositionChange = { position : Float ->
+    var sliderPosition by remember { mutableStateOf(20f) }
+
+    val handlePositionChange = { position: Float ->
         sliderPosition = position
     }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()          // ← modifier применяется
     ) {
         DemoText(message = "Welcome to Compose", fontSize = sliderPosition)
         Spacer(modifier = Modifier.height(150.dp))
@@ -84,7 +86,6 @@ fun DemoScreen(modifier: Modifier = Modifier) {
     }
 }
 
-
 @Preview(showSystemUi = true)
 @Composable
 fun DemoTextPreview() {
@@ -94,4 +95,3 @@ fun DemoTextPreview() {
         }
     }
 }
-
