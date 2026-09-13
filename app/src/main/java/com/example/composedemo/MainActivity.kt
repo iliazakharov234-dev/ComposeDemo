@@ -37,13 +37,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview
-@Composable
-fun DemoTextPreview() {
-    ComposeDemoTheme {
-        DemoText(message = "Welcome to Android", fontSize = 12f)
-    }
-}
+
 
 @Composable
 fun DemoText(message: String, fontSize: Float) {
@@ -91,4 +85,13 @@ fun DemoScreen(modifier: Modifier = Modifier) {
 }
 
 
+@Preview(showSystemUi = true)
+@Composable
+fun DemoTextPreview() {
+    ComposeDemoTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            DemoScreen(modifier = Modifier.padding(innerPadding))
+        }
+    }
+}
 
