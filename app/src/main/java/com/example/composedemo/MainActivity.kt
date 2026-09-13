@@ -20,14 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ComposeDemoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
         }
     }
 }
@@ -39,7 +32,6 @@ fun DemoTextPreview() {
         DemoText(message = "Welcome to Android", fontSize = 12f)
     }
 }
-
 
 @Composable
 fun DemoText(message: String, fontSize: Float) {
